@@ -1,6 +1,6 @@
 # NYC Taxi Data
 
-This project is deployed to many different services.
+This Evidence project is a proof of concept for deploying Evidence projects to many different services.
 
 
 | Service | URL |
@@ -10,7 +10,7 @@ This project is deployed to many different services.
 | Azure Static Apps | https://calm-river-053cc1510.4.azurestaticapps.net/ |
 | Cloudflare Pages | https://nyc-taxi.pages.dev/ |
 | Firebase | https://nyc-taxi-fcdc5.web.app/ |
-| GitHub Pages |  |
-| GitLab Pages |  |
+| GitHub Pages | https://archiewood.github.io/nyc-taxi/ |
+| GitLab Pages | https://nyc-taxi-5fca00.gitlab.io/ |
 | Netlify | https://nyc-taxi-app.netlify.app/ |
 | Vercel | https://nyc-taxi.vercel.app/ |
