@@ -1,13 +1,8 @@
----
-title: NYC Taxi Data
-sidebar: never
----
+# {params.borough}
 
 ```sql date_range
 select * from dates
 ```
-
-This is an exploration of NYC taxi data. It includes a summary of the data, rides by day, and rides by pickup location.
 
 <DateRange 
   name=date_range 
@@ -16,15 +11,16 @@ This is an exploration of NYC taxi data. It includes a summary of the data, ride
   presetRanges={['Last 7 Days', 'Last 30 Days']}
 />
 
-
 ```sql aggregate_stats
 select
   sum(rides) as rides,
   sum(fare_amount) as fare_amount,
   sum(trip_distance) as trip_distance,
   sum(fare_amount)/sum(trip_distance) as fare_per_mile
-from summary
+from summary_borough
+left join zones.zones z on summary_borough.PULocationID = z.location_id
 where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
+and borough = '${params.borough}'
 ```
 
 <BigValue
@@ -50,46 +46,6 @@ where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
   fmt=usd2
 />
 
-```sql fares_by_day
-select *
-from daily
-where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
-group by all
-order by day
-```
-
-<Grid>
-
-<LineChart
-  title="Rides by Day"
-  data={fares_by_day}
-  x=day
-  y=rides
-/>
-
-<LineChart
-  title="Fare Amount by Day"
-  data={fares_by_day}
-  x=day
-  y=fare_amount
-  yFmt=usd1m
-/>
-
-<LineChart
-  title="Trip Distance by Day"
-  data={fares_by_day}
-  x=day
-  y=trip_distance
-/>
-
-<LineChart
-  title="Fare per Mile by Day"
-  data={fares_by_day}
-  x=day
-  y=fare_per_mile
-/>
-</Grid>
-
 
 
 ```sql fares_by_pickup_location
@@ -103,8 +59,9 @@ select
 from location
 left join zones.zones z on location.PULocationID = z.location_id
 where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
+and borough = '${params.borough}'
 group by all
-order by rides desc
+order by 1
 ```
 
 <AreaMap
@@ -124,26 +81,3 @@ order by rides desc
     {id: 'trip_distance', fmt: 'num0', fieldClass: 'text-[grey]', valueClass: 'text-[green]'},
 ]}
 />
-
-
-```sql fares_by_pickup_borough
-select
-  borough,
-  '/borough/' || borough as borough_link,
-  sum(rides) as rides,
-  sum(fare_amount) as fare_amount,
-  sum(trip_distance) as trip_distance
-from location
-left join zones.zones z on location.PULocationID = z.location_id
-where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
-and borough is not null
-group by all
-order by rides desc
-```
-
-<DataTable data={fares_by_pickup_borough} link=borough_link>
-  <Column id=borough/>
-  <Column id=rides fmt=num0/>
-  <Column id=fare_amount fmt=usd1m/>
-  <Column id=trip_distance fmt=num0/>
-</DataTable>
