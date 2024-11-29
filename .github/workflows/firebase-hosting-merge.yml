@@ -13,9 +13,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm ci && npm run sources && npm run build
         env:
-          EVIDENCE_SOURCE__taxi__project_id: "${{ secrets.EVIDENCE_SOURCE__NYC_TAXI__PROJECT_ID }}"
-          EVIDENCE_SOURCE__taxi__client_email: "${{ secrets.EVIDENCE_SOURCE__NYC_TAXI__CLIENT_EMAIL }}"
-          EVIDENCE_SOURCE__taxi__private_key: "${{ secrets.EVIDENCE_SOURCE__NYC_TAXI__PRIVATE_KEY }}"
+          EVIDENCE_SOURCE__taxi__project_id: ${{ secrets.EVIDENCE_SOURCE__NYC_TAXI__PROJECT_ID }}
+          EVIDENCE_SOURCE__taxi__client_email: ${{ secrets.EVIDENCE_SOURCE__NYC_TAXI__CLIENT_EMAIL }}
+          EVIDENCE_SOURCE__taxi__private_key: |
+            ${{ secrets.EVIDENCE_SOURCE__NYC_TAXI__PRIVATE_KEY }}
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
