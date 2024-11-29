@@ -7,7 +7,7 @@ sidebar: never
 select * from taxi.dates
 ```
 
-This is an exploration of NYC taxi data. It includes a summary of the data, rides by day, and rides by pickup location.
+This is an exploration of NYC taxi data in 2022. It includes a summary of the data, rides by day, and rides by pickup location.
 
 <DateRange 
   name=date_range 
