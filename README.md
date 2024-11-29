@@ -7,10 +7,10 @@ This project is deployed to many different services.
 |---------|-----|
 | Evidence Cloud | https://nyc-taxi.evidence.app/ |
 | AWS Amplify | https://main.dgvuexz73zzx6.amplifyapp.com/ |
-| Azure Static Apps |  |
-| Cloudflare Pages |  |
-| Firebase |  |
+| Azure Static Apps | https://calm-river-053cc1510.4.azurestaticapps.net/ |
+| Cloudflare Pages | https://nyc-taxi.pages.dev/ |
+| Firebase | https://nyc-taxi-fcdc5.web.app/ |
 | GitHub Pages |  |
 | GitLab Pages |  |
-| Netlify |  |
-| Vercel |  |
+| Netlify | https://nyc-taxi-app.netlify.app/ |
+| Vercel | https://nyc-taxi.vercel.app/ |
