@@ -1,6 +1,6 @@
 # NYC Taxi Data
 
-This project is deployed to many different services.
+This Evidence project is a proof of concept for deploying Evidence projects to many different services.
 
 
 | Service | URL |
