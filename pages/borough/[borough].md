@@ -19,7 +19,7 @@ select
 from taxi.summary_borough
 left join zones.zones z on taxi.summary_borough.pickup_location_id = z.location_id
 where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
-and borough = '${params.borough}'
+and lower(borough) = lower('${params.borough}')
 ```
 
 <BigValue
@@ -59,7 +59,7 @@ select
 from taxi.location l
 left join zones.zones z on l.pickup_location_id = z.location_id
 where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
-and borough = '${params.borough}'
+and lower(borough) = lower('${params.borough}')
 group by all
 order by 1
 ```
