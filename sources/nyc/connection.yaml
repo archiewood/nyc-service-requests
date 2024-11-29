@@ -1,8 +1,0 @@
-# This file was automatically generated
-type: motherduck
-name: nyc
-options:
-  database: sample_data
-# Advanced Options, you probably don't want to change this
-buildOptions:
-  batchSize: 1000000

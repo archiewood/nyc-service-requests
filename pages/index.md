@@ -1,10 +1,10 @@
 ---
-title: NYC Taxi Data
+title: NYC Taxi Data 2022
 sidebar: never
 ---
 
 ```sql date_range
-select * from dates
+select * from taxi.dates
 ```
 
 This is an exploration of NYC taxi data. It includes a summary of the data, rides by day, and rides by pickup location.
@@ -13,7 +13,6 @@ This is an exploration of NYC taxi data. It includes a summary of the data, ride
   name=date_range 
   data={date_range} 
   dates=day
-  presetRanges={['Last 7 Days', 'Last 30 Days']}
 />
 
 
@@ -23,13 +22,14 @@ select
   sum(fare_amount) as fare_amount,
   sum(trip_distance) as trip_distance,
   sum(fare_amount)/sum(trip_distance) as fare_per_mile
-from summary
+from taxi.summary
 where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
 ```
 
 <BigValue
   data={aggregate_stats}
   value=rides
+  fmt=num0
 />
 
 <BigValue
@@ -52,7 +52,7 @@ where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
 
 ```sql fares_by_day
 select *
-from daily
+from taxi.daily
 where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
 group by all
 order by day
@@ -94,14 +94,14 @@ order by day
 
 ```sql fares_by_pickup_location
 select
-  PULocationID,
+  pickup_location_id,
   zone,
   borough,
   sum(rides) as rides,
   sum(fare_amount) as fare_amount,
   sum(trip_distance) as trip_distance
-from location
-left join zones.zones z on location.PULocationID = z.location_id
+from taxi.location l
+left join zones.zones z on l.pickup_location_id = z.location_id
 where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
 group by all
 order by rides desc
@@ -111,7 +111,7 @@ order by rides desc
   data={fares_by_pickup_location}
   geoJsonUrl='/taxi_zones.geojson'
   geoId=objectid
-  areaCol=PULocationID
+  areaCol=pickup_location_id
   value=rides
   valueFmt=num0
   title="Rides by Pickup Location"
@@ -133,8 +133,8 @@ select
   sum(rides) as rides,
   sum(fare_amount) as fare_amount,
   sum(trip_distance) as trip_distance
-from location
-left join zones.zones z on location.PULocationID = z.location_id
+from taxi.location l
+left join zones.zones z on l.pickup_location_id = z.location_id
 where day between '${inputs.date_range.start}' and '${inputs.date_range.end}'
 and borough is not null
 group by all
