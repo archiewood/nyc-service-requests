@@ -30,4 +30,4 @@ jobs:
       - name: Deploy to Hugging Face Space
         run: |
           # Update to use your repo
-          huggingface-cli repo update https://huggingface.co/archiewood/nyc-taxi --delete --folder build
+          huggingface-cli repo upload archiewood/nyc-taxi ./build --delete="*" --repo-type=space
