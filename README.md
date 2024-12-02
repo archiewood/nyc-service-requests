@@ -14,3 +14,4 @@ This Evidence project is a proof of concept for deploying Evidence projects to m
 | GitLab Pages | https://nyc-taxi-5fca00.gitlab.io/ |
 | Netlify | https://nyc-taxi-app.netlify.app/ |
 | Vercel | https://nyc-taxi.vercel.app/ |
+| Hugging Face Spaces | https://archiesarrewood-nyc-taxi.static.hf.space/ |
