@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - hugging-face-spaces
   workflow_dispatch:
 
 jobs:
