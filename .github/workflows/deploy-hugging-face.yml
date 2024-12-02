@@ -1,0 +1,33 @@
+name: Deploy to Hugging Face Space on Merge
+on:
+  push:
+    branches:
+      - main
+      - hugging-face-spaces
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository
+      - uses: actions/checkout@v4
+
+      # Install dependencies and build the project
+      - run: npm ci && npm run sources && npm run build
+        env:
+          EVIDENCE_SOURCE__taxi__project_id: ${{ secrets.EVIDENCE_SOURCE__TAXI__PROJECT_ID }}
+          EVIDENCE_SOURCE__taxi__client_email: ${{ secrets.EVIDENCE_SOURCE__TAXI__CLIENT_EMAIL }}
+          EVIDENCE_SOURCE__taxi__private_key: ${{ secrets.EVIDENCE_SOURCE__TAXI__PRIVATE_KEY }}
+
+      # Deploy to Hugging Face Space
+      - name: Install Hugging Face CLI
+        run: pip install huggingface-hub
+
+      - name: Authenticate with Hugging Face
+        run: huggingface-cli login --token "${{ secrets.HUGGINGFACE_TOKEN }}"
+
+      - name: Deploy to Hugging Face Space
+        run: |
+          # Update to use your repo
+          huggingface-cli repo update https://huggingface.co/archiewood/nyc-taxi --delete --folder build
